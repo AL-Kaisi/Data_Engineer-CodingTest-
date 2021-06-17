@@ -1,0 +1,32 @@
+
+1. 
+Assumption 1: 
+
+select campaign_id,opens from campaign ORDER BY campaign_id
+
+Assumption 2: 
+
+select campaign_id, count(open_flag) as open_rate from delivery_logs 
+where open_flag = 1 group by campaign_id 
+-------------------------------------------------------------------------------------------------
+
+
+2. select avg(opens),avg(clicks),EXTRACT(MONTH FROM campaign_start_date)as Month from campaign GROUP BY month order by month;
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+3. Select * from recipient where first_name LIKE '%DAVE%' OR last_name LIKE '%DAVE%';
+
+select count(*) from recipient where first_name="Dave" or last_name ="Dave"
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. select first_name, last_name, date_received from recipient r 
+   inner join delivery_logs d on r.recipient_id=d.recipient_id
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. select first_name, last_name from recipient r inner join delivery_logs d on r.recipient_id=d.recipient_id where date_received=(select max(date_received) from delivery_logs) 
+ 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7. SELECT ROUND(AVG(DATEDIFF(delivery_logs.date_received,campaign.campaign_start_date))) as avg_datediff from campaign INNER JOIN delivery_logs ON campaign.campaign_id = delivery_logs.campaign_id;
